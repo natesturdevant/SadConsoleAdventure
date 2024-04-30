@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 
 namespace SadConsoleGame;
 
@@ -23,6 +24,7 @@ internal class Map
 
         CreateTreasure();
         CreateMonster();
+        
     }
 
     private void FillBackground()
@@ -59,7 +61,27 @@ internal class Map
         }
     }
 
-    private void CreateMonster()
+    public void CreateConsole()
+    {
+        ScreenObject container = new ScreenObject();
+        Game.Instance.Screen = container;
+
+        // First console
+        Console console1 = new(115, 5);
+        console1.Position = (2, 32);
+        console1.Surface.DefaultBackground = Color.AnsiCyan;
+        console1.Clear();
+        console1.Print(1, 1, "Type on me!");
+        console1.Cursor.Position = (1, 2);
+        console1.Cursor.IsEnabled = true;
+        console1.Cursor.IsVisible = true;
+        console1.Cursor.MouseClickReposition = true;
+        console1.IsFocused = true;
+
+        container.Children.Add(console1);
+    }
+
+    public  void CreateMonster()
     {
         // Try 1000 times to get an empty map position
         for (int i = 0; i < 1000; i++)
@@ -94,4 +116,27 @@ internal class Map
         gameObject = null;
         return false;
     }
+
+    public bool IsMonsterNearby(Point currentPosition)
+    {
+        // Define the range within which a monster is considered "nearby"
+        int detectionRange = 5;
+
+        foreach (var obj in _mapObjects)
+        {
+            if (obj is GameObject && ((GameObject)obj).Appearance.Glyph == 'M') // Check if the object is a monster
+            {
+                var monster = (GameObject)obj;
+                if (Math.Abs(monster.Position.X - currentPosition.X) <= detectionRange &&
+                    Math.Abs(monster.Position.Y - currentPosition.Y) <= detectionRange)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+
 }
