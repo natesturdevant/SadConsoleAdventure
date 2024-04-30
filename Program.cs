@@ -1,7 +1,7 @@
 ﻿using SadConsole.Configuration;
 using SadConsoleGame;
 
-Settings.WindowTitle = "My SadConsole Game";
+Settings.WindowTitle = "PLATO 1976";
 
 Builder configuration = new Builder()
     .SetScreenSize(120, 38)
