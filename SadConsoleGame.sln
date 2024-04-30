@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SadConsoleGame", "SadConsoleGame.csproj", "{A56B433B-79F7-49BB-9792-2CA030C5B69E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A56B433B-79F7-49BB-9792-2CA030C5B69E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A56B433B-79F7-49BB-9792-2CA030C5B69E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A56B433B-79F7-49BB-9792-2CA030C5B69E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A56B433B-79F7-49BB-9792-2CA030C5B69E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D81881E2-00F6-4B32-90B9-5139B02F5EDE}
+	EndGlobalSection
+EndGlobal
