@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 
 namespace SadConsoleGame;
@@ -77,8 +78,8 @@ internal class Map
         console1.Cursor.IsVisible = true;
         console1.Cursor.MouseClickReposition = true;
         console1.IsFocused = true;
-
         container.Children.Add(console1);
+        
     }
 
     public  void CreateMonster()

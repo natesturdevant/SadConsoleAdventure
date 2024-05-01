@@ -48,10 +48,14 @@ internal class RootScreen : ScreenObject
             if (_map.IsMonsterNearby(_map.UserControlledObject.Position))
             {
                 //add dialogue functionality here
-               
+
 
                 // First console
-               
+
+
+
+
+                /*
                 Console console1 = new(116, 4);
                 console1.Position = (1, 33);
                 console1.Surface.DefaultBackground = Color.AnsiCyan;
@@ -64,7 +68,14 @@ internal class RootScreen : ScreenObject
                 console1.IsFocused = true;
                 Game.Instance.Screen.Children.Add(console1);
                 //container.Children.Add(console1);
-               
+               */
+
+                KeyboardHandlers keyboardHandlers = new KeyboardHandlers();
+                keyboardHandlers.Position = (1, 33);
+                Game.Instance.Screen.Children.Add(keyboardHandlers);
+
+
+
                 handled = true;
             }
         }
