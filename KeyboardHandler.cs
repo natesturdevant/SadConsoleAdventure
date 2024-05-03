@@ -1,4 +1,7 @@
-﻿using SadConsole.Components;
+﻿/*
+
+
+using SadConsole.Components;
 using SadConsole.UI.Controls;
 using SadConsole.UI;
 using System;
@@ -6,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection.Metadata;
 
 namespace SadConsoleGame
 {
@@ -45,13 +49,16 @@ namespace SadConsoleGame
         private readonly ClassicConsoleKeyboardHandler _keyboardHandlerDOS;
         private readonly C64KeyboardHandler _keyboardHandlerC64;
 
+                                    
+        
+
         // This console domonstrates a classic MS-DOS or Windows Command Prompt style console.
         public KeyboardHandlers() : base(28, 4)
         {
             FocusOnMouseClick = false;
 
             // This is our custom keyboard handlers we'll be using to process the cursor on this console.
-            _keyboardHandlerDOS = new ClassicConsoleKeyboardHandler("Prompt> ");
+            _keyboardHandlerDOS = new ClassicConsoleKeyboardHandler("Ask about...> ");
             _keyboardHandlerC64 = new C64KeyboardHandler("READY.\r\n");
 
             // Create the other console where the keyboard handler will be set
@@ -151,8 +158,8 @@ namespace SadConsoleGame
 
             _promptScreen.Surface.TimesShiftedUp = 0;
         }
-
-        private void DOSHandlerEnterPressed(ClassicConsoleKeyboardHandler keyboardComponent, Cursor cursor, string value)
+        
+        public void DOSHandlerEnterPressed(ClassicConsoleKeyboardHandler keyboardComponent, Cursor cursor, string value)
         {
             value = value.ToLower().Trim();
 
@@ -210,6 +217,9 @@ namespace SadConsoleGame
                 cursor.Print("  Unknown command").NewLine();
             }
         }
+        
+
+        
 
         private void _typingInstruction_Finished(object? sender, EventArgs e)
         {
@@ -288,3 +298,5 @@ namespace SadConsoleGame
         }
     }
 }
+
+*/

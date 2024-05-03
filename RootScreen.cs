@@ -1,4 +1,7 @@
-﻿using SadConsole.Input;
+﻿using SadConsole.Components;
+using SadConsole.Input;
+using SadConsole.UI;
+
 
 namespace SadConsoleGame;
 
@@ -12,9 +15,14 @@ internal class RootScreen : ScreenObject
         _map = new Map(Game.Instance.ScreenCellsX, Game.Instance.ScreenCellsY - 6);
         Children.Add(_map.SurfaceObject);
 
-    
-      
-        
+       // CustomConsole customConsole = new CustomConsole(113,3);
+
+        // Set the position of the console on the screen
+        //customConsole.Position = new Point(1, 31); // Set the position as needed
+        //SadConsole.Game.Instance.Screen.Children.Add(customConsole);
+        //Children.Add(_map.SurfaceObject);
+        //customConsole.IsVisible = false;
+
     }
 
     public override bool ProcessKeyboard(Keyboard keyboard)
@@ -48,35 +56,24 @@ internal class RootScreen : ScreenObject
             if (_map.IsMonsterNearby(_map.UserControlledObject.Position))
             {
                 //add dialogue functionality here
+                
+                // Create an instance of CustomConsole with a width of 80 and height of 5
+                    CustomConsole customConsole = new CustomConsole(118, 5);
+                
+
+                // Set the position of the console on the screen
+                customConsole.Position = new Point(1, 33); // Set the position as needed
+                    customConsole.IsFocused = true;
+                    Game.Instance.Screen.Children.Add(customConsole);
+                customConsole.OnConsoleClosed += (sender, e) => Game.Instance.Screen.Children.Remove(customConsole);
+                
 
 
-                // First console
-
-
-
-
-                /*
-                Console console1 = new(116, 4);
-                console1.Position = (1, 33);
-                console1.Surface.DefaultBackground = Color.AnsiCyan;
-                //console1.Clear();
-                console1.Print(1, 1, "Ask about...");
-                console1.Cursor.Position = (1, 2);
-                console1.Cursor.IsEnabled = true;
-                console1.Cursor.IsVisible = true;
-                //console1.Cursor.MouseClickReposition = true;
-                console1.IsFocused = true;
-                Game.Instance.Screen.Children.Add(console1);
-                //container.Children.Add(console1);
-               */
-
-                KeyboardHandlers keyboardHandlers = new KeyboardHandlers();
-                keyboardHandlers.Position = (1, 33);
-                Game.Instance.Screen.Children.Add(keyboardHandlers);
 
 
 
                 handled = true;
+  
             }
         }
 

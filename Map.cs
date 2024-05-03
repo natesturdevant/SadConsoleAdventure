@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using SadConsole.Components;
+using SadConsole.UI;
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 
@@ -20,6 +22,7 @@ internal class Map
         _mapSurface.UseMouse = false;
 
         FillBackground();
+        
 
         UserControlledObject = new GameObject(new ColoredGlyph(Color.White, Color.Black, 2), _mapSurface.Surface.Area.Center, _mapSurface);
 
@@ -61,27 +64,27 @@ internal class Map
             break;
         }
     }
-
+    /*
     public void CreateConsole()
     {
-        ScreenObject container = new ScreenObject();
-        Game.Instance.Screen = container;
+        ClassicConsoleKeyboardHandler keyboardHandler = new ClassicConsoleKeyboardHandler("Ask about... ");
 
-        // First console
-        Console console1 = new(115, 5);
-        console1.Position = (2, 32);
-        console1.Surface.DefaultBackground = Color.AnsiCyan;
-        console1.Clear();
-        console1.Print(1, 1, "Type on me!");
-        console1.Cursor.Position = (1, 2);
-        console1.Cursor.IsEnabled = true;
-        console1.Cursor.IsVisible = true;
-        console1.Cursor.MouseClickReposition = true;
-        console1.IsFocused = true;
-        container.Children.Add(console1);
-        
+
+        // Configure the console size and position as needed
+        ControlsConsole console = new ControlsConsole(116, 14);
+        console.Position = (1, 23);
+        console.Surface.DefaultBackground = Color.Black;
+        console.IsFocused = true;
+
+        // Add the keyboard handler to the console
+        console.SadComponents.Add(keyboardHandler);
+
+
+        // Add the console to the screen
+        Game.Instance.Screen.Children.Add(console);
+
     }
-
+    */
     public  void CreateMonster()
     {
         // Try 1000 times to get an empty map position

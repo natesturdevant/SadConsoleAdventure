@@ -22,7 +22,8 @@ Game.Instance.Dispose();
 
 static void Startup(object? sender, GameHost host)
 {
+    //nothing here.
     
-    //nothing
-    
+
 }
+
