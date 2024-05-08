@@ -5,25 +5,19 @@ using SadConsole.UI;
 
 namespace SadConsoleGame;
 
+
 internal class RootScreen : ScreenObject
 {
     private Map _map;
-    
+
 
     public RootScreen()
     {
         _map = new Map(Game.Instance.ScreenCellsX, Game.Instance.ScreenCellsY - 6);
         Children.Add(_map.SurfaceObject);
-
-       // CustomConsole customConsole = new CustomConsole(113,3);
-
-        // Set the position of the console on the screen
-        //customConsole.Position = new Point(1, 31); // Set the position as needed
-        //SadConsole.Game.Instance.Screen.Children.Add(customConsole);
-        //Children.Add(_map.SurfaceObject);
-        //customConsole.IsVisible = false;
-
     }
+
+  
 
     public override bool ProcessKeyboard(Keyboard keyboard)
     {
@@ -75,6 +69,20 @@ internal class RootScreen : ScreenObject
                 handled = true;
   
             }
+        }
+
+        else if (keyboard.IsKeyPressed(Keys.M))
+        {
+            if (_map.IsAtEdge(_map.UserControlledObject.Position))
+            {
+                _map.SurfaceObject.Print(1,1,"Yes!");
+                
+            }
+        }
+
+        else if (keyboard.IsKeyDown(Keys.B))
+        {
+          //Jesus Christ
         }
 
         return handled;

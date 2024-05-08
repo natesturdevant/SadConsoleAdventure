@@ -1,6 +1,7 @@
 ﻿using SadConsole.Components;
 using SadConsole.UI;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 
@@ -10,25 +11,32 @@ internal class Map
 {
     private List<GameObject> _mapObjects;
     private ScreenSurface _mapSurface;
+    public Point WorldPosition;
 
     public IReadOnlyList<GameObject> GameObjects => _mapObjects.AsReadOnly();
     public ScreenSurface SurfaceObject => _mapSurface;
     public GameObject UserControlledObject { get; set; }
+    public int PlayerScreen { get; set; }
+
+
 
     public Map(int mapWidth, int mapHeight)
     {
+
         _mapObjects = new List<GameObject>();
         _mapSurface = new ScreenSurface(mapWidth, mapHeight);
         _mapSurface.UseMouse = false;
-
-        FillBackground();
         
+        FillBackground();
+        UserControlledObject = new GameObject(new ColoredGlyph(Color.AnsiMagentaBright, Color.Transparent, 2), _mapSurface.Surface.Area.Center, _mapSurface);
 
-        UserControlledObject = new GameObject(new ColoredGlyph(Color.White, Color.Black, 2), _mapSurface.Surface.Area.Center, _mapSurface);
+        _mapSurface.DrawBox(new Rectangle(3, 3, 23, 10), ShapeParameters.CreateBorder(new ColoredGlyph(Color.Blue, Color.Black, 176)));
 
+        
         CreateTreasure();
         CreateMonster();
-        
+
+
     }
 
     private void FillBackground()
@@ -45,8 +53,11 @@ internal class Map
                                 (x, y, color) => _mapSurface.Surface[x, y].Background = color);
     }
 
+    
+
     private void CreateTreasure()
     {
+
         // Try 1000 times to get an empty map position
         for (int i = 0; i < 1000; i++)
         {
@@ -64,29 +75,11 @@ internal class Map
             break;
         }
     }
-    /*
-    public void CreateConsole()
-    {
-        ClassicConsoleKeyboardHandler keyboardHandler = new ClassicConsoleKeyboardHandler("Ask about... ");
-
-
-        // Configure the console size and position as needed
-        ControlsConsole console = new ControlsConsole(116, 14);
-        console.Position = (1, 23);
-        console.Surface.DefaultBackground = Color.Black;
-        console.IsFocused = true;
-
-        // Add the keyboard handler to the console
-        console.SadComponents.Add(keyboardHandler);
-
-
-        // Add the console to the screen
-        Game.Instance.Screen.Children.Add(console);
-
-    }
-    */
+    
     public  void CreateMonster()
     {
+
+        
         // Try 1000 times to get an empty map position
         for (int i = 0; i < 1000; i++)
         {
@@ -141,6 +134,87 @@ internal class Map
 
         return false;
     }
+
+    public bool IsAtEdge(Point position, int buffer = 1)
+    {
+        // Get the map dimensions
+        int mapHeight = _mapSurface.Height;
+        int mapWidth = _mapSurface.Width;
+        
+
+        // Check if the player's position is within the buffer zone of the edge
+        return position.X < buffer || position.X >= mapWidth - buffer ||
+               position.Y < buffer || position.Y >= mapHeight - buffer;
+    }
+
+    Console _debugger = new Console(10, 10);
+
+    public Point WrapAroundPosition(Point position, int buffer = 1)
+    {
+        int mapWidth = 120;
+        int mapHeight = 30;
+        WorldPosition = (2, 2);
+        
+        
+
+        // Adjust coordinates for buffer zone
+        int adjustedX = position.X;
+        int adjustedY = position.Y;
+
+        if (position.X < buffer) //left
+        {
+            adjustedX = mapWidth - buffer -1;
+            WorldPosition -= Direction.Left;
+            if (WorldPosition.X == -1)
+            {
+                WorldPosition = (5, WorldPosition.Y);
+                
+            }
+            _debugger.Print(0, 0, $"{WorldPosition.X} {WorldPosition.Y}");
+            _debugger.Cursor.NewLine();
+        }
+        else if (position.X >= mapWidth - buffer) //right
+        {
+            adjustedX = buffer;
+            WorldPosition += Direction.Right;
+            if (WorldPosition.X == 6)
+            {
+                WorldPosition = (0, WorldPosition.Y);
+
+            }
+            _debugger.Print(0, 0, $"{WorldPosition.X} {WorldPosition.Y}");
+            _debugger.Cursor.NewLine();
+        }
+
+        if (position.Y < buffer) // top
+        {
+            adjustedY = mapHeight + buffer -1;
+            WorldPosition -= Direction.Up;
+            if (WorldPosition.Y == -1)
+            {
+                WorldPosition = (5, WorldPosition.X);
+            }
+            _debugger.Print(0, 0, $"{WorldPosition.X} {WorldPosition.Y}");
+            _debugger.Cursor.NewLine();
+        }
+        else if (position.Y >= mapHeight - buffer)
+        {
+            adjustedY = buffer; //bottom
+            WorldPosition += Direction.Down;
+            if (WorldPosition.Y == 6)
+            {
+                WorldPosition = (0, WorldPosition.X);
+            }
+            _debugger.Print(0, 0, $"{WorldPosition.X} {WorldPosition.Y}");
+            _debugger.Cursor.NewLine();
+
+
+        }
+
+        return new Point(adjustedX, adjustedY);
+        
+    }
+
 
 
 }
