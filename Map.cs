@@ -17,6 +17,7 @@ internal class Map
     public ScreenSurface SurfaceObject => _mapSurface;
     public GameObject UserControlledObject { get; set; }
     public int PlayerScreen { get; set; }
+    
 
 
 
@@ -35,12 +36,13 @@ internal class Map
         
         CreateTreasure();
         CreateMonster();
-
+        WorldPosition = (2, 2);
 
     }
 
-    private void FillBackground()
+    public void FillBackground()
     {
+        
         Color[] colors = new[] { Color.LightGreen, Color.Coral, Color.CornflowerBlue, Color.DarkGreen };
         float[] colorStops = new[] { 0f, 0.35f, 0.75f, 1f };
 
@@ -131,7 +133,7 @@ internal class Map
                 }
             }
         }
-
+         
         return false;
     }
 
@@ -147,15 +149,14 @@ internal class Map
                position.Y < buffer || position.Y >= mapHeight - buffer;
     }
 
-    Console _debugger = new Console(10, 10);
+   
 
     public Point WrapAroundPosition(Point position, int buffer = 1)
     {
         int mapWidth = 120;
         int mapHeight = 30;
-        WorldPosition = (2, 2);
-        
-        
+
+        //WorldPosition = (2, 2); initial coordinate is set elsewhere         
 
         // Adjust coordinates for buffer zone
         int adjustedX = position.X;
@@ -164,54 +165,52 @@ internal class Map
         if (position.X < buffer) //left
         {
             adjustedX = mapWidth - buffer -1;
-            WorldPosition -= Direction.Left;
+            WorldPosition = WorldPosition - (1, 0);
             if (WorldPosition.X == -1)
             {
                 WorldPosition = (5, WorldPosition.Y);
                 
             }
-            _debugger.Print(0, 0, $"{WorldPosition.X} {WorldPosition.Y}");
-            _debugger.Cursor.NewLine();
+            
         }
         else if (position.X >= mapWidth - buffer) //right
         {
             adjustedX = buffer;
-            WorldPosition += Direction.Right;
+            WorldPosition = WorldPosition + (1, 0);
             if (WorldPosition.X == 6)
             {
                 WorldPosition = (0, WorldPosition.Y);
 
             }
-            _debugger.Print(0, 0, $"{WorldPosition.X} {WorldPosition.Y}");
-            _debugger.Cursor.NewLine();
+            
         }
 
         if (position.Y < buffer) // top
         {
-            adjustedY = mapHeight + buffer -1;
-            WorldPosition -= Direction.Up;
+            adjustedY = mapHeight - buffer -1;
+            //WorldPosition = WorldPosition - ((0, 1));
+            WorldPosition = WorldPosition - (0, 1);
             if (WorldPosition.Y == -1)
             {
-                WorldPosition = (5, WorldPosition.X);
+                WorldPosition = (WorldPosition.X, 5);
             }
-            _debugger.Print(0, 0, $"{WorldPosition.X} {WorldPosition.Y}");
-            _debugger.Cursor.NewLine();
+            
         }
         else if (position.Y >= mapHeight - buffer)
         {
             adjustedY = buffer; //bottom
-            WorldPosition += Direction.Down;
+            WorldPosition = WorldPosition + (0, 1);
             if (WorldPosition.Y == 6)
             {
-                WorldPosition = (0, WorldPosition.X);
+                WorldPosition = (WorldPosition.X, 0);
             }
-            _debugger.Print(0, 0, $"{WorldPosition.X} {WorldPosition.Y}");
-            _debugger.Cursor.NewLine();
+            
 
 
         }
 
         return new Point(adjustedX, adjustedY);
+
         
     }
 

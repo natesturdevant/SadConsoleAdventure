@@ -83,6 +83,9 @@ internal class RootScreen : ScreenObject
         else if (keyboard.IsKeyDown(Keys.B))
         {
           //Jesus Christ
+            Map map = _map;
+            map.SurfaceObject.Clear();
+            map.SurfaceObject.Print(5, 5, $"{map.WorldPosition}");
         }
 
         return handled;
