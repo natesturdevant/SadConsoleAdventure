@@ -1,5 +1,6 @@
 ﻿using SadConsole.Components;
 using SadConsole.Input;
+using SadConsole.Instructions;
 using SadConsole.UI;
 
 
@@ -9,7 +10,7 @@ namespace SadConsoleGame;
 internal class RootScreen : ScreenObject
 {
     private Map _map;
-
+    private Map map;
 
     public RootScreen()
     {
@@ -51,7 +52,7 @@ internal class RootScreen : ScreenObject
             {
                 //add dialogue functionality here
                 
-                // Create an instance of CustomConsole with a width of 80 and height of 5
+                // Create an instance of CustomConsole with a width of 118 and height of 5
                     CustomConsole customConsole = new CustomConsole(118, 5);
                 
 
@@ -71,6 +72,8 @@ internal class RootScreen : ScreenObject
             }
         }
 
+        
+
         else if (keyboard.IsKeyPressed(Keys.M))
         {
             if (_map.IsAtEdge(_map.UserControlledObject.Position))
@@ -86,6 +89,11 @@ internal class RootScreen : ScreenObject
             Map map = _map;
             map.SurfaceObject.Clear();
             map.SurfaceObject.Print(5, 5, $"{map.WorldPosition}");
+        }
+
+        else if (keyboard.IsKeyDown(Keys.L))
+        {
+            
         }
 
         return handled;

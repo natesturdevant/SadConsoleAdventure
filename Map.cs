@@ -17,8 +17,8 @@ internal class Map
     public ScreenSurface SurfaceObject => _mapSurface;
     public GameObject UserControlledObject { get; set; }
     public int PlayerScreen { get; set; }
-    
 
+    //public CellSurface coloredGlyphBases;
 
 
     public Map(int mapWidth, int mapHeight)
@@ -34,7 +34,7 @@ internal class Map
         _mapSurface.DrawBox(new Rectangle(3, 3, 23, 10), ShapeParameters.CreateBorder(new ColoredGlyph(Color.Blue, Color.Black, 176)));
 
         
-        CreateTreasure();
+        //CreateTreasure();
         CreateMonster();
         WorldPosition = (2, 2);
 
@@ -78,13 +78,26 @@ internal class Map
         }
     }
     
+    public static bool FindWall(Point newPosition, Map map)
+    {
+        if (map.SurfaceObject.GetBackground(newPosition.X, newPosition.Y) == Color.White)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     public  void CreateMonster()
     {
-
+       
         
         // Try 1000 times to get an empty map position
         for (int i = 0; i < 1000; i++)
         {
+            
             // Get a random position
             Point randomPosition = new Point(Game.Instance.Random.Next(0, _mapSurface.Surface.Width),
                                                 Game.Instance.Random.Next(0, _mapSurface.Surface.Height));
@@ -93,9 +106,20 @@ internal class Map
             bool foundObject = _mapObjects.Any(obj => obj.Position == randomPosition);
             if (foundObject) continue;
 
+           
+
             // If the code reaches here, we've got a good position, create the game object.
             GameObject monster = new GameObject(new ColoredGlyph(Color.Red, Color.Black, 'M'), randomPosition, _mapSurface);
+
+
+
+
+
+            _mapObjects.Clear();
             _mapObjects.Add(monster);
+                
+            
+            
             break;
         }
     }
@@ -116,10 +140,12 @@ internal class Map
         return false;
     }
 
+ 
+
     public bool IsMonsterNearby(Point currentPosition)
     {
         // Define the range within which a monster is considered "nearby"
-        int detectionRange = 5;
+        int detectionRange = 3;
 
         foreach (var obj in _mapObjects)
         {
@@ -153,7 +179,7 @@ internal class Map
 
     public Point WrapAroundPosition(Point position, int buffer = 1)
     {
-        int mapWidth = 120;
+        int mapWidth = 60;
         int mapHeight = 30;
 
         //WorldPosition = (2, 2); initial coordinate is set elsewhere         

@@ -12,6 +12,7 @@ internal class GameObject
     private ColoredGlyph _mapAppearance = new ColoredGlyph();
     private Map _map;
     Console _debugger = new Console(10, 10);
+    public Map map;
     
     public Point Position { get; private set; }
     private MapDrawing mapDraw = new MapDrawing(); // Instantiate MapDrawing object
@@ -35,10 +36,28 @@ internal class GameObject
         screenSurface.IsDirty = true;
     }
 
+    bool FindWall(Point newPosition, Map map)
+    {
+
+
+        if (map.SurfaceObject.GetBackground(newPosition.X, newPosition.Y) == Color.White)
+        {
+            return true;
+        }
+
+        else { return false; }
+    }
+
     public bool Move(Point newPosition, Map map)
     {
         // Check new position is valid
         if (!map.SurfaceObject.IsValidCell(newPosition.X, newPosition.Y)) return false;
+
+        if (FindWall(newPosition, map)) 
+        {
+            return false;
+        }
+       
 
         // Check if other object is there
         if (map.TryGetMapObject(newPosition, out GameObject? foundObject))
@@ -59,13 +78,16 @@ internal class GameObject
             // Wrap around to the opposite end
             map.UserControlledObject.Position = map.WrapAroundPosition(newPosition);
             _mapAppearance.CopyAppearanceTo(map.SurfaceObject.Surface[newPosition]);
+           
             Position = newPosition;
             // Update player's visuals on the screen
 
             mapDraw.drawMaps(map);
             DrawGameObject(map.SurfaceObject);
+            map.CreateMonster();
             
-     
+
+
         }
         else
         {
