@@ -79,16 +79,29 @@ internal class RootScreen : ScreenObject
             if (_map.IsAtEdge(_map.UserControlledObject.Position))
             {
                 _map.SurfaceObject.Print(1,1,"Yes!");
-                
+                handled = true;
             }
         }
 
         else if (keyboard.IsKeyDown(Keys.B))
         {
-          //Jesus Christ
+          
             Map map = _map;
-            map.SurfaceObject.Clear();
-            map.SurfaceObject.Print(5, 5, $"{map.WorldPosition}");
+            MapDrawing mappo = new MapDrawing();
+            MapDrawing mapDrawing = mappo;
+           // map.SurfaceObject.Clear();
+            //map.SurfaceObject.Print(5, 5, $"{map.WorldPosition}");
+            
+            CustomConsole check = new CustomConsole(7,4);
+
+            map.SurfaceObject.Children.Add(check);
+            
+            check.Print(0, 0, $"{map.WorldPosition}    ");
+            check.Print(0,1,$"{map.UserControlledObject.Position}");
+            check.Print(0, 2, $"{mappo.mapIndex}");
+            handled = true;
+            
+           
         }
 
         else if (keyboard.IsKeyDown(Keys.L))

@@ -124,6 +124,8 @@ using System.Collections.Generic;
 
 namespace SadConsoleGame
 {
+
+    
     internal class CustomConsole : ControlsConsole
     {
         private readonly ClassicConsoleKeyboardHandler _keyboardHandler;
@@ -157,9 +159,7 @@ namespace SadConsoleGame
             }
             catch (Exception ex)
             {
-                //Console.("Error loading JSON: " + ex.Message);
-                //.SurfaceObject.Print(5, 5, "Error loading JSON: " + ex.Message);
-                
+                Cursor.Print("Error loading JSON: " + ex.Message);
                 keywordMapping = new Dictionary<string, string>();
             }
         }

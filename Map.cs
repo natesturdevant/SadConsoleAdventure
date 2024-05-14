@@ -9,7 +9,7 @@ namespace SadConsoleGame;
 
 internal class Map
 {
-    private List<GameObject> _mapObjects;
+    public List<GameObject> _mapObjects;
     private ScreenSurface _mapSurface;
     public Point WorldPosition;
 
@@ -37,6 +37,7 @@ internal class Map
         //CreateTreasure();
         CreateMonster();
         WorldPosition = (2, 2);
+
 
     }
 
@@ -89,7 +90,7 @@ internal class Map
             return true;
         }
     }
-
+    MapDrawing mapDrawing = new MapDrawing();
     public  void CreateMonster()
     {
        
@@ -102,27 +103,41 @@ internal class Map
             Point randomPosition = new Point(Game.Instance.Random.Next(0, _mapSurface.Surface.Width),
                                                 Game.Instance.Random.Next(0, _mapSurface.Surface.Height));
 
+            Point randomPosition2 = new Point(Game.Instance.Random.Next(0, _mapSurface.Surface.Width),
+                                                Game.Instance.Random.Next(0, _mapSurface.Surface.Height));
+
             // Check if any object is already positioned there, repeat the loop if found
             bool foundObject = _mapObjects.Any(obj => obj.Position == randomPosition);
+            
             if (foundObject) continue;
 
-           
+            
 
             // If the code reaches here, we've got a good position, create the game object.
-            GameObject monster = new GameObject(new ColoredGlyph(Color.Red, Color.Black, 'M'), randomPosition, _mapSurface);
-
+            //GameObject monster = new GameObject(new ColoredGlyph(Color.Red, Color.Black, 'M'), randomPosition, _mapSurface);
+            GameObject Carol = new GameObject(new ColoredGlyph(Color.Cyan, Color.Black, 'C'), randomPosition2, _mapSurface);
+            
 
 
 
 
             _mapObjects.Clear();
-            _mapObjects.Add(monster);
+            //_mapObjects.Add(Carol);
+            //int mapIndex = WorldPosition.Y * 5 + WorldPosition.X;
+            switch (WorldPosition)
+            {
+                case (0, 0): GameObject monster = new GameObject(new ColoredGlyph(Color.Red, Color.Black, 'M'), randomPosition, _mapSurface); _mapObjects.Add(monster); break;
+                case (0, 1): _mapObjects.Add(Carol); break;
+
+            }
                 
             
             
             break;
         }
     }
+
+ 
 
     public bool TryGetMapObject(Point position, [NotNullWhen(true)] out GameObject? gameObject)
     {
@@ -149,7 +164,8 @@ internal class Map
 
         foreach (var obj in _mapObjects)
         {
-            if (obj is GameObject && ((GameObject)obj).Appearance.Glyph == 'M') // Check if the object is a monster
+           // if (obj is GameObject && obj.Appearance.Glyph == 'M') // Check if the object is a monster
+           if (obj is GameObject && obj.Appearance.IsVisible)
             {
                 var monster = (GameObject)obj;
                 if (Math.Abs(monster.Position.X - currentPosition.X) <= detectionRange &&
@@ -194,7 +210,7 @@ internal class Map
             WorldPosition = WorldPosition - (1, 0);
             if (WorldPosition.X == -1)
             {
-                WorldPosition = (5, WorldPosition.Y);
+                WorldPosition = (4, WorldPosition.Y);
                 
             }
             
@@ -203,7 +219,7 @@ internal class Map
         {
             adjustedX = buffer;
             WorldPosition = WorldPosition + (1, 0);
-            if (WorldPosition.X == 6)
+            if (WorldPosition.X == 5)
             {
                 WorldPosition = (0, WorldPosition.Y);
 
@@ -218,7 +234,7 @@ internal class Map
             WorldPosition = WorldPosition - (0, 1);
             if (WorldPosition.Y == -1)
             {
-                WorldPosition = (WorldPosition.X, 5);
+                WorldPosition = (WorldPosition.X, 4);
             }
             
         }
@@ -226,7 +242,7 @@ internal class Map
         {
             adjustedY = buffer; //bottom
             WorldPosition = WorldPosition + (0, 1);
-            if (WorldPosition.Y == 6)
+            if (WorldPosition.Y == 5)
             {
                 WorldPosition = (WorldPosition.X, 0);
             }

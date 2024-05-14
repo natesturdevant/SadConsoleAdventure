@@ -48,6 +48,11 @@ internal class GameObject
         else { return false; }
     }
 
+    public void PartnerFollow()
+    {
+
+    }
+
     public bool Move(Point newPosition, Map map)
     {
         // Check new position is valid
@@ -81,9 +86,11 @@ internal class GameObject
            
             Position = newPosition;
             // Update player's visuals on the screen
-
+            
             mapDraw.drawMaps(map);
+            
             DrawGameObject(map.SurfaceObject);
+            
             map.CreateMonster();
             
 
