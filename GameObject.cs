@@ -50,11 +50,13 @@ internal class GameObject
 
     public void PartnerFollow()
     {
-
+        //add partner following logic
     }
-
+    
     public bool Move(Point newPosition, Map map)
     {
+        
+        
         // Check new position is valid
         if (!map.SurfaceObject.IsValidCell(newPosition.X, newPosition.Y)) return false;
 
@@ -83,15 +85,15 @@ internal class GameObject
             // Wrap around to the opposite end
             map.UserControlledObject.Position = map.WrapAroundPosition(newPosition);
             _mapAppearance.CopyAppearanceTo(map.SurfaceObject.Surface[newPosition]);
-           
+            
             Position = newPosition;
             // Update player's visuals on the screen
             
             mapDraw.drawMaps(map);
-            
+            map.CreateMonster();
             DrawGameObject(map.SurfaceObject);
             
-            map.CreateMonster();
+            
             
 
 
