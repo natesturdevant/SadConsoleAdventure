@@ -131,7 +131,7 @@ internal class Map
             switch (WorldPosition)
             {
                 case (0, 0): GameObject Anthony = new GameObject(new ColoredGlyph(Color.Red, Color.Black, 'A'), randomPosition, _mapSurface); _mapObjects.Add(Anthony);
-                    charGlyph = 65; break;
+                    charGlyph = 65; string StringCharGlyph = charGlyph.ToString(); break;
                 case (0, 1): GameObject Brenda = new GameObject(new ColoredGlyph(Color.Cyan, Color.Black, 'B'), randomPosition2, _mapSurface); _mapObjects.Add(Brenda);
                     charGlyph = 66; break;
                 case (0, 2): GameObject Connie = new GameObject(new ColoredGlyph(Color.AnsiYellow, Color.Black, 'C'), randomPosition2, _mapSurface); _mapObjects.Add(Connie);

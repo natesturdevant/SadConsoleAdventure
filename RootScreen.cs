@@ -67,7 +67,7 @@ internal class RootScreen : ScreenObject
                     customConsole.IsFocused = true;
                
 
-                customConsole.LoadKeywordMapping(); 
+                //customConsole.LoadKeywordMapping(); 
                     Game.Instance.Screen.Children.Add(customConsole);
                 customConsole.OnConsoleClosed += (sender, e) => Game.Instance.Screen.Children.Remove(customConsole);
 
@@ -108,7 +108,8 @@ internal class RootScreen : ScreenObject
             
             check.Print(0, 0, $"{map.WorldPosition}    ");
             check.Print(0,1,$"{map.UserControlledObject.Position}");
-            check.Print(0, 2, $"{map.charGlyph}");
+            check.Print(0, 2, $"{map.charGlyph.ToString()}");
+           
             handled = true;
             
            
