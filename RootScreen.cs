@@ -56,13 +56,13 @@ internal class RootScreen : ScreenObject
                 //add dialogue functionality here
                 
                 // Create an instance of CustomConsole with a width of 118 and height of 5
-                    CustomConsole customConsole = new CustomConsole(118, 5);
-                   
+                    //CustomConsole customConsole = new CustomConsole(118, 5);
+                CustomConsole customConsole = new CustomConsole(118, 5, _map);
 
                 // Set the position of the console on the screen
-                
+
                 customConsole.Position = new Point(1, 33); // Set the position as needed
-               
+               //CustomConsole customConsole = new CustomConsole(118, 5, _map);
                 //customConsole.LoadKeywordMapping();
                     customConsole.IsFocused = true;
                
@@ -102,7 +102,7 @@ internal class RootScreen : ScreenObject
            // map.SurfaceObject.Clear();
             //map.SurfaceObject.Print(5, 5, $"{map.WorldPosition}");
             
-            CustomConsole check = new CustomConsole(7,4);
+            CustomConsole check = new CustomConsole(7,4, _map);
 
             map.SurfaceObject.Children.Add(check);
             

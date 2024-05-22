@@ -217,9 +217,10 @@ namespace SadConsoleGame
         private Dictionary<string, string> keywordMapping;
         private Dictionary<string, Dictionary<string, string>> jsonData;
 
-        public CustomConsole(int width, int height) : base(width, height)
+        public CustomConsole(int width, int height, Map _map) : base(width, height)
         {
-            map = new Map(Game.Instance.ScreenCellsX, Game.Instance.ScreenCellsY - 6);
+            //map = new Map(Game.Instance.ScreenCellsX, Game.Instance.ScreenCellsY - 6);
+            map = _map;
             _keyboardHandler = new ClassicConsoleKeyboardHandler("Ask about... ");
             _keyboardHandler.EnterPressedAction = EnterPressedActionHandler;
             SadComponents.Add(_keyboardHandler);
